@@ -4,7 +4,6 @@
  и там же может их отправлять.
  ###################################################################################################################
 """
-from datetime import datetime
 
 from flask import Flask, render_template, redirect, url_for, request
 
@@ -44,7 +43,6 @@ roles_users = db.Table('roles_users',
                       )
 
 class User(db.Model, UserMixin):
-    # __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(100), primary_key=True)
     password = db.Column('password', db.String(255))
@@ -63,13 +61,13 @@ security = Security(app, user_datastore)
 
 
 @app.route('/', methods=['GET'])
-def hello_world():
+def index():
     return render_template('index.html')
 
 
 @app.route('/main', methods=['GET'])
 @login_required
-def main():
+def my_chat():
     return render_template('main.html', messages=Message.query.all())
 
 
